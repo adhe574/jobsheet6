@@ -2,11 +2,11 @@ import java.util.Scanner;
 
 public class Pemilihan2Percobaan201 {
     public static void main(String[] args) {
-        Scanner Absen = new Scanner(System.in);
+        Scanner input01 = new Scanner(System.in);
 
-        int pilihan_menu;
-        String member;
+        String member, metodePembayaran, menu;
         double harga = 0, diskon = 0, total_bayar;
+        int POTONGAN_QRIS = 0;
 
         System.out.println("-------------------------------");
         System.out.println("======== MENU KAFE JTI ========");
@@ -17,30 +17,53 @@ public class Pemilihan2Percobaan201 {
         System.out.println("-------------------------------------");
 
         System.out.print("masukkan angka dari menu yang dipilih = ");
-        pilihan_menu = Absen.nextInt();
-        Absen.nextLine();
+        menu = input01.nextLine();
 
         System.out.print("Apakah punya member (y/n) ? = ");
-        member = Absen.nextLine();
+        member = input01.nextLine();
+        System.out.print("Pilih jenis pembayaran(Tunai/QRIS) = ");
+        metodePembayaran = input01.nextLine();
         System.out.println("--------------------------------------");
 
-        if (member.equalsIgnoreCase("n"))
-            if (pilihan_menu == 1) {
-                harga = 14000;
-                System.out.println("Harga ricebowl = " + harga);
-             } else if (pilihan_menu == 2) {
-                harga = 3000;
-                System.out.println("Harga ice tea = " + harga);
-             }  else if (pilihan_menu == 3) {
-                harga = 15000;
-                System.out.println("Harga bundling = " + harga);
-             } else {
-                System.out.println("Member tidak valid");
-             }
+        if (!(menu.equalsIgnoreCase("1") || menu.equalsIgnoreCase("2") || menu.equalsIgnoreCase("3"))) {
+            System.out.println("Masukkan pilihan menu dengan benar");
+            return;
+        }
 
-        total_bayar = harga - (harga * diskon);
+        if (menu.equalsIgnoreCase("1")) {
+            harga = 14000;
+            System.out.println("Harga RiceBowl = " + harga);
+        } else if (menu.equalsIgnoreCase("2")) {
+            harga = 3000;
+            System.out.println("Harga Ice Tea = " + harga);
+        } else if (menu.equalsIgnoreCase("3")) {
+            harga = 15000;
+            System.out.println("Harga Paket Bundling = " + harga);
+        }
+
+        if (member.equalsIgnoreCase("y")) {
+        
+        } else if (member.equalsIgnoreCase("n")) {
+            diskon = 0;
+        } else {
+            System.out.println("Status member tidak valid");
+            return;
+        }
+
+        double subtotal = harga - (harga * diskon);
+
+        if (metodePembayaran.equalsIgnoreCase("QRIS")) {
+            POTONGAN_QRIS = 1000;
+            System.out.println("Potongan pembayaran QRIS = Rp.1.000");   
+        } else if (metodePembayaran.equalsIgnoreCase("Tunai")) {
+            POTONGAN_QRIS = 0;
+        }  else {
+            System.out.println("Jenis pembayaran tidak valid");
+            return;
+        }
+
+        total_bayar = subtotal - POTONGAN_QRIS ;
         System.out.println("Total bayar = " + total_bayar);
-        System.out.println("--------------------------------------");
-
-             }
+        System.out.println("-------------------------------");
     }
+}
